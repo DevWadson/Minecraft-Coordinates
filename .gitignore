@@ -1,0 +1,16 @@
+.venv/
+.git/
+.env
+
+desktop.ini
+
+*.db
+*.sqbpro
+
+__pycache__/
+*.pyc
+
+App/build
+App/dist
+
+uv.lock

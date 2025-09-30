@@ -1,0 +1,29 @@
+[
+    {
+        "Dimensão": "Overworld",
+        "Local": "Home",
+        "Servidor": "MANIKAS",
+        "X": 1062.0,
+        "Y": 64.0,
+        "Z": -948.68,
+        "id": 1
+    },
+    {
+        "Dimensão": "Overworld",
+        "Local": "Bau",
+        "Servidor": "Server1",
+        "X": 131.271,
+        "Y": 24.0,
+        "Z": 265.107,
+        "id": 2
+    },
+    {
+        "Dimensão": "Overworld",
+        "Local": "Forno",
+        "Servidor": "Server1",
+        "X": 122.506,
+        "Y": -24.0,
+        "Z": 299.687,
+        "id": 3
+    }
+]
