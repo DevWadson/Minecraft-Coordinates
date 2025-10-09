@@ -11,7 +11,7 @@
 
 - [ ] Implementar um método de procura das coordenadas.
 - [ ] Fazer um validador.
-- [ ] .
+- [ ] Implenentar um método para mostrar as informações das coordenadas.
 - [ ] .
 
 ## 🚀 Futuro
@@ -23,5 +23,4 @@
 - [ ] Otimizar o uso de memória do app.
 - [ ] Otimizar o BD.
 - [ ] Exportação para CSV/JSON.
-- [ ] .
 - [ ] .
