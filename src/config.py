@@ -4,6 +4,8 @@ import os
 from flask import Flask
 from flask_mysqldb import MySQL
 from dotenv import load_dotenv
+from database.SQLite.sqlite_db_script import Coordenada
+from database.SQL.mysql_conection import conectar_mysql
 
 #==========Declarações Globais==========
 load_dotenv()
@@ -13,7 +15,6 @@ mysql = MySQL()
 #'/_main/'
 class MySQLConfig:
     """Configurações do MySQL"""
-
     def iniciar(self):
         """Gerencia a configuração com o banco"""
         host = os.getenv("DB_HOST")
@@ -26,16 +27,7 @@ class MySQLConfig:
         app.config['MYSQL_PASSWORD'] = psswrd
         app.config['MYSQL_DB'] = name
 
-        return mysql.__init__(app)
+        return app
 
-#'/_gui/'
-ONE_SECOND = 1000
-TWO_SECOND = 2000
-THREE_SECOND = 3000
-FOUR_SECOND = 4000
-FIVE_SECOND = 5000
-SIX_SECOND = 6000
-SEVEN_SECOND = 7000
-EIGHT_SECOND = 8000
-NINE_SECOND = 9000
-TEN_SECOND = 10000
+session = conectar_mysql()
+coordenada = session.query(Coordenada).all()
