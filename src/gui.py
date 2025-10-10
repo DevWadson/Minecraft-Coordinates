@@ -1,16 +1,13 @@
 """ARQUIVO REFATORADO QUE REPRESENTA A GUI DO PROGRAMA (_gui)."""
+import customtkinter as ctk
+import pandas as pd
 from database import (
-    Coordenada,
-    Local,
     commit_coordenada,
     check_existence
 )
-from database.SQL.mysql_conection import conectar_mysql
-import pandas as pd
-import customtkinter as ctk
-from .config import THREE_SECOND
+from .utils import buscar_local, clear_frame, criar_botao, selected_option
+from .config import coordenada
 from .validador import Validador
-
 
 class GUI:
     """Classe responsável pela interface gráfica do programa."""
@@ -30,6 +27,7 @@ class GUI:
 
     def criar_widgets(self):
         """Cria e organiza todos os widgets da interface."""
+        clear_frame()
     #Cabeçalho
         self.header = ctk.CTkLabel(self.janela, text="Formulário", font=("Times New Roman", 20))
         self.header.pack(pady=10)
@@ -42,23 +40,20 @@ class GUI:
         self.server_entry = self.criar_entry("Servidor")
         self.dimension_entry = self.criar_entry("Dimensão")
         self.local_entry = self.criar_entry("Nome da Coordenada")
-        self.coor_x_entry = self.criar_entry("Coordenada X")
-        self.coor_y_entry = self.criar_entry("Coordenada Y")
-        self.coor_z_entry = self.criar_entry("Coordenada Z")
+        self.x_entry = self.criar_entry("Coordenada X")
+        self.y_entry = self.criar_entry("Coordenada Y")
+        self.z_entry = self.criar_entry("Coordenada Z")
 
     #Menu Lateral Inferior
         self.menu = ctk.CTkFrame(self.janela, width=200, corner_radius=10)
         self.menu.pack(side="left", fill="y", padx=10, pady=10)
 
     #Botões
-        self.botao_save = ctk.CTkButton(self.janela, text="Salvar Coordenada", command=self.salvar_coor)
-        self.botao_save.pack(pady=10)
+        self.botao_save = criar_botao(self.janela, "Salvar Coordenada", self.salvar_coor)
 
-        self.botao_show = ctk.CTkButton(self.menu, text="Ver Coordenadas", command=self.show_coor)
-        self.botao_show.pack(pady=10, padx=20)
+        self.botao_show = criar_botao(self.menu, "Ver Coordenadas", command=self.show_coor)
 
-        self.botao_search = ctk.CTkButton(self.menu, text="Procurar Coordenada", command=self.search_coor)
-        self.botao_search.pack(pady=10, padx=20)
+        self.botao_search = criar_botao(self.menu, text="Procurar Coordenada", command=self.search_coor)
 
     #Frame para exibição das coordenadas
         self.conteudo_frame = ctk.CTkFrame(self.janela)
@@ -72,8 +67,8 @@ class GUI:
 
         return self.criar_widgets
 
-    def criar_entry(self, placeholder_text):
-        """Cria um campo de entrada (Entry) para o formulário."""
+    def criar_entry(self, placeholder_text:str) -> ctk.CTkEntry:
+        """Cria campos de input."""
         entry = ctk.CTkEntry(self.janela, placeholder_text=placeholder_text)
         entry.pack(padx=5, pady=10)
 
@@ -85,25 +80,25 @@ class GUI:
         self.janela.mainloop()
 
     def coletar_coor(self) -> tuple:
-        """ . """
+        """Método para coletar as coordenadas."""
         return (
             self.server_entry.get(),
             self.dimension_entry.get(),
             self.local_entry.get(),
-            float(self.coor_x_entry.get()),
-            float(self.coor_y_entry.get()),
-            float(self.coor_z_entry.get())
+            float(self.x_entry.get()),
+            float(self.y_entry.get()),
+            float(self.z_entry.get())
         )
 
     def limpar_campos(self):
-        """ . """
+        """Limpa os campos de entrada."""
         for entry in [self.server_entry,
                         self.dimension_entry,
                         self.local_entry,
-                        self.coor_x_entry,
-                        self.coor_y_entry,
-                        self.coor_z_entry
-                      ]:
+                        self.x_entry,
+                        self.y_entry,
+                        self.z_entry
+                        ]:
             entry.delete(0, "end")
         return
 
@@ -111,15 +106,13 @@ class GUI:
         """Método para coletar as coordenadas."""
         server, dim, local, x, y, z = self.coletar_coor()
 
-    #Valida as entradas
         if not self.validate_entries(server, dim, local, x, y, z):
             self.janela.after(2000, self.limpar_mensagem) # 2000ms = 2 segundos
 
-    #Checa a existência da coordenada
         if check_existence(server_name=server, dim_name=dim, local_name=local, coor_x=x, coor_y=y, coor_z=z):
             self.dados.configure(text=f'Coordenada "{local}" já existente!')
             self.limpar_campos()
-            self.janela.after(THREE_SECOND, self.limpar_mensagem)
+            self.janela.after(3000, self.limpar_mensagem)
 
     #Salva as coordenadas
         else:
@@ -138,7 +131,7 @@ class GUI:
         """Método para validar as entradas."""
         valid_serv = Validador.validar_string(server, "Servidor")
         valid_wrld = Validador.validar_world(world, "Dimensão")
-        valid_nome = Validador.validar_string(nome, "Nome")
+        valid_nome = Validador.validar_string(nome, "Nome da Coordenada")
         valid_coord_x = Validador.validar_coord(coor_x, "Coordenada X")
         valid_coord_y = Validador.validar_coord(coor_y, "Coordenada Y")
         valid_coord_z = Validador.validar_coord(coor_z, "Coordenada Z")
@@ -154,92 +147,57 @@ class GUI:
 
         return True
 
+    # DA PRA MELHORAR MAIS!!!!!!!!!!
     def show_coor(self):
         """Método para mostrar as coordenadas salvas."""
         self.conteudo.configure(text="Coordenadas Salvas") #TÍTULO
 
     # Limpa o frame anterior
-        for widget in self.conteudo_frame.winfo_children():
-            if widget != self.conteudo:
-                widget.destroy()
+        clear_frame()
 
-        session = conectar_mysql()
-
-        #Pega as coordenadas salvas no BD
-        coordenada = session.query(Coordenada).all()
-
-        #Converte as coordenadas em um dataframe
+        #Converte as coordenadas para um objeto
         coordenadas_all = [
             {
                 'Servidor': coor.id_server,
-                'Dimensão': coor.id_dimen,
+                'Dimensao': coor.id_dimen,
                 'Local': coor.local,
-                'X': coor.x,
-                'Y': coor.y,
-                'Z': coor.z
+                'x': coor.x,
+                'y': coor.y,
+                'z': coor.z
             }
             for coor in coordenada
         ]
 
-        df_coord = pd.DataFrame(coordenadas_all)
+        #Converte o obeto em um dataframe
+        coord_info_df: pd.DataFrame = pd.DataFrame(coordenadas_all)
 
-        self.text_box = ctk.CTkTextbox(self.conteudo_frame, width=600, height=300)
+        # Cria uma caixa de texto para exibir as coordenadas
+        text_box: ctk.CTkTextbox = ctk.CTkTextbox(self.conteudo_frame, width=600, height=300)
+        text_box.pack(pady=10)
 
-        self.text_box.pack(pady=10)
-        if not hasattr(self, "text_box") or not self.text_box.winfo_exists():
-            ...
+        # Verifica se a caixa de texto ainda existe
+        if not hasattr(self, "text_box") or not text_box.winfo_exists():
+            pass
         else:
-            self.text_box.configure(state="normal")
-            self.text_box.delete("1.0", "end")
+            text_box.configure(state="normal") #HABILITA A CAIXA
+            text_box.delete("1.0", "end")
 
         #Converte o dataframe para uma tabela estilizada
-        coord_str = df_coord.to_string(index=True, justify="center", col_space=10)
+        coord_str = coord_info_df.to_string(index=True, justify="center", col_space=10)
 
         #Anexa as coordenadas ao frame
-        if df_coord.empty:
+        if coord_info_df.empty:
             self.conteudo.configure(text="Nenhuma coordenada salva") #REESCRITA DO TÍTULO
 
         else:
-            self.text_box.insert("1.0", f'\n{coord_str}')
-            self.text_box.configure(state="disabled")
+            text_box.insert("1.0", f'\n{coord_str}')
+            text_box.configure(state="disabled")
 
     def search_coor(self):
         """Método para procurar as coordenadas salvas."""
-        self.conteudo.configure(text="Procurar Coordenada") #TÍTULO
+        self.conteudo.configure(text="Procurar Coordenada")
 
-        for widget in self.conteudo_frame.winfo_children():
-            if widget != self.conteudo:
-                widget.destroy()
-
-        def selection_click(option):
-            if option == "Selecione":
-                pass
-
-            if option == "Servidor":
-                return self.show_coor()
-
-            if option == "Local":
-                botao_buscar = ctk.CTkButton(self.conteudo_frame, text="Buscar", command=buscar)
-                botao_buscar.pack(pady=5)
-
-                self.local_entry = self.criar_entry(placeholder_text="Nome da Coodenada")
-
-        def buscar():
-            nome:str = self.local_entry.get() #Searched Local
-
-            session = conectar_mysql()
-            resultado = (
-                session.query(Coordenada)
-                .join(Local, Coordenada.id_local == Local.id)
-                .filter(Local.nome == nome)
-                .first()
-            )
-
-            if resultado:
-                self.show_coor()
-
-            else:
-                self.conteudo.configure(text="Coordenada não encontrada.")
+        clear_frame()
 
         menu = ctk.CTkOptionMenu(
             self.conteudo_frame,
@@ -248,8 +206,10 @@ class GUI:
                 "Servidor",
                 "Local"
             ],
-            command=selection_click
+            command=selected_option
         ).pack(pady=10)
+
+        botao_search: ctk.CTkButton = criar_botao(self.conteudo_frame, "Buscar", buscar_local)
 
     def limpar_mensagem(self):
         """Método para limpar a mensagem."""
