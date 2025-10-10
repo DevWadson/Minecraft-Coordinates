@@ -22,3 +22,4 @@
 - [ ] Otimizar o uso de memória do app.
 - [ ] Otimizar o BD.
 - [ ] Exportação para CSV/JSON.
+- [ ] Redirecionar ao clicar no nome da coordenada.
