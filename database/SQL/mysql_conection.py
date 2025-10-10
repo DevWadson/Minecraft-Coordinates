@@ -12,11 +12,10 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
-from src.config import MySQLConfig
+from src.config import db_config
 
 load_dotenv()
 
-db_config = MySQLConfig()
 db_config.iniciar()
 
 MYSQL_CONN = f"mysql+pymysql://{os.getenv("DB_USER")}:{os.getenv("DB_PSSWRD")}@{os.getenv("DB_HOST")}/{os.getenv("DB_NAME")}"

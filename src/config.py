@@ -29,5 +29,6 @@ class MySQLConfig:
 
         return app
 
+db_config = MySQLConfig()
 session = conectar_mysql()
 coordenada = session.query(Coordenada).all()

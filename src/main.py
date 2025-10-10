@@ -1,5 +1,6 @@
 """Programa para guardar coordenadas do Minecraft.(_main)"""
 # from database import criar_tabelas_sqlite
+from database.SQLite.sqlite_db_script import criar_tabelas_sqlite
 from database.SQL.mysql_conection import conectar_mysql
 from . import GUI
 
@@ -11,7 +12,7 @@ def main():
     mysql_conn = conectar_mysql()
 
 # ==========COMANDOS==========
-    # criar_tabelas_sqlite() # SQLite
+    criar_tabelas_sqlite()
 
     tela.abrir_tela()
 
