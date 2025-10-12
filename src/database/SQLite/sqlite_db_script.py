@@ -6,7 +6,7 @@ from sqlalchemy.orm import sessionmaker, declarative_base, relationship
 
 load_dotenv()
 DBpath = os.path.join(os.path.dirname(f'{os.getenv("SQLite_PATH")}'), f'{os.getenv("SQLite_NAME")}')
-SQLite_BIN = create_engine(f'sqlite:///{DBpath}') #Cria o arquivo do BD
+SQLite_BIN = create_engine(f'sqlite:///{DBpath}')
 Base = declarative_base()
 
 class Servidor(Base):
@@ -67,8 +67,8 @@ def criar_tabelas_sqlite():
 #Cria conexão com o BD
 def conectar_sqlite_bd():
     """Método para criar conexão com o BD."""
-    Session = sessionmaker(bind=SQLite_BIN)
-    return Session()
+    session = sessionmaker(bind=SQLite_BIN)
+    return session()
 
 #==========Métodos para o BD==========
 def commit_coordenada(srv_name:str, dim_name:str, local_name:str, coor_x:float, coor_y:float, coor_z:float) -> str:
@@ -106,7 +106,7 @@ def commit_coordenada(srv_name:str, dim_name:str, local_name:str, coor_x:float, 
 
     return f'Coordenadas de {dim_name}-{local_name} foram salvas com sucesso no servidor {srv_name}!'
 
-def check_existence(server_name:str, dim_name:str, local_name:str, coor_x:float, coor_y:float, coor_z:float):
+def check_existence(server_name:str, dim_name:str, local_name:str, coor_x:float, coor_y:float, coor_z:float) -> bool:
     """Método para verificar se a coordenada existe."""
     #Cria conexão com o BD
     session = conectar_sqlite_bd()
