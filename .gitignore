@@ -1,18 +1,18 @@
+#Hidden Folders
 .venv/
 .vscode/
 .git/
 .env
 config.py
 
-desktop.ini
+#Folders
+__pycache__/
+App/
 
+#Files
+desktop.ini
 *.db
 *.sqbpro
-
-__pycache__/
 *.pyc
-
-App/build
-App/dist
-
-uv.lock
+*.json
+*.lock
