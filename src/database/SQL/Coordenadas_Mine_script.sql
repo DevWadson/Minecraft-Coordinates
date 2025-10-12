@@ -68,7 +68,7 @@ CREATE VIEW CoordenadaPorServer AS
         JOIN local l on c.id_local=l.id
         ORDER BY s.nome;
 
--- View para listar coordenadas pelo nome da coordenada
+-- View para listar coordenadas pelo nome do local
 CREATE VIEW CoordenadaPorNome AS
 	SELECT
 		c.id, -- ID da Coordenada
