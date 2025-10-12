@@ -1,7 +1,7 @@
 """ARQUIVO REFATORADO QUE REPRESENTA A GUI DO PROGRAMA (_gui)."""
 import customtkinter as ctk
 import pandas as pd
-from database import commit_coordenada, check_existence
+from src.database import commit_coordenada, check_existence
 from .utils import buscar_local, clear_frame, criar_botao, selected_option
 from .config import coordenada
 from .validador import Validador
