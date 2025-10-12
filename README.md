@@ -1,5 +1,3 @@
-Opa, pessoal! DevWadson, aqui! E falando sobre este projeto.
-
 # 🧭 Minecraft Coordinates
 
 Um projeto simples e útil para jogadores de **Minecraft** que precisam acompanhar suas coordenadas no jogo sem depender apenas da tela de debug (`F3`).  
@@ -49,8 +47,11 @@ queira voltar ou ir e precisa de uma coordenada para isto.
    pip install -r requirements.txt
 
 4. Execute o projeto:
-   se usa PPM (Python Package Manager)
    ```bash
+   python -m src.main # Windows
+   python3 -m src.main # MAC/Linux
+   
+   # se usa PPM (Python Package Manager)
    uv run python -m src.main
 
 🤝 Contribuições
