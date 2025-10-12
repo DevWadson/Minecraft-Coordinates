@@ -2,7 +2,7 @@
 
 ## 🧩 Em progresso
 
-- [ ] .
+- [ ] Migração do banco de dados SQLite para MySQL.
 - [ ] .
 - [ ] .
 - [ ] .
