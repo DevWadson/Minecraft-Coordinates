@@ -49,7 +49,7 @@ queira voltar ou ir e precisa de uma coordenada para isto.
 4. Execute o projeto:
    ```bash
    python -m src.main # Windows
-   python3 -m sec.main # MAC/Linux
+   python3 -m src.main # MAC/Linux
    
    # se usa PPM (Python Package Manager)
    uv run python -m src.main
