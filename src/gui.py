@@ -156,7 +156,7 @@ class GUI:
         coordenadas_all = [
             {
                 'Servidor': coor.id_server,
-                'Dimensao': coor.id_dimen,
+                'Dimensao': coor.id_dim,
                 'Local': coor.local,
                 'x': coor.x,
                 'y': coor.y,

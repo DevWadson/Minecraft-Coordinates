@@ -35,7 +35,7 @@ class Local(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     id_server = Column(Integer, ForeignKey('servidor.id'))
-    id_dimen = Column(Integer, ForeignKey('dimensao.id'))
+    id_dim = Column(Integer, ForeignKey('dimensao.id'))
     nome = Column(String(50), nullable=False)
 
     #Seleciona as dimensões do local
@@ -50,7 +50,7 @@ class Coordenada(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     id_server = Column(Integer, ForeignKey('servidor.id'))
-    id_dimen = Column(Integer, ForeignKey('dimensao.id'))
+    id_dim = Column(Integer, ForeignKey('dimensao.id'))
     id_local = Column(Integer, ForeignKey('local.id'))
     x = Column("x", Float, nullable=False)
     y = Column("y", Float, nullable=False)
@@ -87,15 +87,15 @@ def commit_coordenada(srv_name:str, dim_name:str, local_name:str, coor_x:float, 
         session.add(dimensao)
         session.commit()
 
-    local: Local = session.query(Local).filter_by(nome=local_name, id_dimen=dimensao.id).first()
+    local: Local = session.query(Local).filter_by(nome=local_name, id_dim=dimensao.id).first()
     if not local:
-        local = Local(nome=local_name, id_server=servidor.id, id_dimen=dimensao.id)
+        local = Local(nome=local_name, id_server=servidor.id, id_dim=dimensao.id)
         session.add(local)
         session.commit()
 
     coordenada: Coordenada = Coordenada(
         id_server=servidor.id,
-        id_dimen=dimensao.id,
+        id_dim=dimensao.id,
         id_local=local.id,
         x=coor_x, y=coor_y, z=coor_z
     )
@@ -119,14 +119,14 @@ def check_existence(server_name:str, dim_name:str, local_name:str, coor_x:float,
     if not dim:
         return False
 
-    local = session.query(Local).filter_by(nome=local_name, id_dimen=dim.id, id_server=servidor.id).first()
+    local = session.query(Local).filter_by(nome=local_name, id_dim=dim.id, id_server=servidor.id).first()
     if not local:
         return False
 
     #Pega as coordenadas do banco e verifica duplicata
     exists = session.query(Coordenada).filter_by(
         id_server=servidor.id,
-        id_dimen=dim.id,
+        id_dim=dim.id,
         id_local=local.id,
         x=coor_x,
         y=coor_y,
