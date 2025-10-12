@@ -2,7 +2,7 @@
 #==========Imports==========
 from typing import Union, Callable, Any
 import customtkinter as ctk
-from database.SQLite.sqlite_db_script import Servidor, Coordenada, Local
+from .database.SQLite.sqlite_db_script import Servidor, Coordenada, Local
 from .config import session
 
 def clear_frame() -> None:
