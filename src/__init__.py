@@ -15,4 +15,15 @@ Elementos incluídos:
 from .gui import GUI
 from .validador import Validador
 from . import utils
-from .config import MySQLConfig
+
+from .database import (
+    Servidor,
+    Dimensao,
+    Local,
+    Coordenada,
+    SQL,
+    conectar_sqlite_bd,
+    criar_tabelas_sqlite,
+    commit_coordenada,
+    check_existence
+)
