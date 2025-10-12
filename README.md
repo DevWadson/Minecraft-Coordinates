@@ -1,5 +1,3 @@
-Opa, pessoal! DevWadson, aqui! E falando sobre este projeto.
-
 # 🧭 Minecraft Coordinates
 
 Um projeto simples e útil para jogadores de **Minecraft** que precisam acompanhar suas coordenadas no jogo sem depender apenas da tela de debug (`F3`).  
