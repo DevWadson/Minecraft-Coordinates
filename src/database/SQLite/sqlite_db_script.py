@@ -1,4 +1,5 @@
 """ARQUIVO RESPONSÁVEL PELA CRIAÇÃO DO SQLITE DB."""
+#Módulo retorna arquivo.db
 import os
 from dotenv import load_dotenv
 from sqlalchemy import Column, Integer, Float, String, ForeignKey, create_engine
@@ -9,6 +10,7 @@ DBpath = os.path.join(os.path.dirname(f'{os.getenv("SQLite_PATH")}'), f'{os.gete
 SQLite_BIN = create_engine(f'sqlite:///{DBpath}')
 Base = declarative_base()
 
+#==========Classes para o db==========
 class Servidor(Base):
     """Classe que representa o mundo/servidor criado"""
     __tablename__ = "servidor"
@@ -43,7 +45,6 @@ class Local(Base):
     dimension = relationship("Dimensao", back_populates="local_name")
     coord = relationship("Coordenada", back_populates="local")
 
-#==========Classe para o BD==========
 class Coordenada(Base):
     """Tabela que indica a posição geográfica do personagem"""
     __tablename__ = "coordenada"
