@@ -7,6 +7,7 @@ class ServidorBase(BaseModel):
 
 class ServidorCreate(ServidorBase):
     """ . """
+    pass
 
 class ServidorResponse(ServidorBase):
     """ . """
