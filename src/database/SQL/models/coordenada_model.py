@@ -1,5 +1,6 @@
 """ . """
 from sqlalchemy import Column, Integer, Float, ForeignKey
+from sqlalchemy.orm import relationship
 from src.database.SQL.base import Base
 
 class Coordenada(Base):
@@ -13,3 +14,6 @@ class Coordenada(Base):
     x = Column("x", Float, nullable=False)
     y = Column("y", Float, nullable=False)
     z = Column("z", Float, nullable=False)
+
+    #Seleciona os locais da coordenada
+    local = relationship("Local", back_populates="coord")
