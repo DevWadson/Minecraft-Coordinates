@@ -21,9 +21,9 @@ queira voltar ou ir e precisa de uma coordenada para isto.
 - **Linguagem:** Python 3  
 - **Bibliotecas:**  
   - `customtkinter` → interface gráfica moderna
-  - `pyautogui` → captura de tela/inputs (se aplicável)
   - `pandas` → manipulação de dados em DataFrames
   - `sqlite3` → banco de dados leve integrado
+  - `mypy` -> conexão com o MySQL
 - **Outras ferramentas:** Git, VS Code
 
 ---
