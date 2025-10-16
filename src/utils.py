@@ -2,8 +2,8 @@
 #==========Imports==========
 from typing import Union, Callable, Any
 import customtkinter as ctk
-from .database.SQLite.sqlite_db_script import Servidor, Coordenada, Local
-from .config import session
+from .database.SQL.mysql_connection import get_mysql_db
+from .database.SQL.models import Servidor, Coordenada
 
 def clear_frame() -> None:
     """Método para limpar os atributos do frame."""
@@ -22,7 +22,8 @@ def selected_option(option:str):
         return None
 
     if option == "Servidor":
-        return session.query(Servidor.nome).all()
+        with get_mysql_db() as db:
+            return db.query(Servidor.nome).all()
 
     if option == "Local": #Procura o nome digitado na entry, no banco
         return buscar_local()
@@ -33,10 +34,13 @@ def buscar_local() -> Coordenada:
     """Método para procurar os locais salvos."""
     nome: ctk.CTkEntry = ctk.CTkEntry(ctk.CTk(), placeholder_text="")
 
-    return (session.query(Coordenada)
-            .join(Local, Coordenada.id_local == Local.id)
-            .filter(Local.nome == nome)
-            .first())
+    with get_mysql_db() as db:
+            return (
+                db.query(Coordenada)
+                    .join(Local, Coordenada.id_local == Local.id)
+                    .filter(Local.nome == nome)
+                    .first()
+            )
 
 def criar_botao(inserted_on:Any, text:str, command: Union[Callable[[], Any], None]) -> ctk.CTkButton:
     """Método para criar um botão."""
