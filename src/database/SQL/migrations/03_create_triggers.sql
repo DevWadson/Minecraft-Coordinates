@@ -10,4 +10,26 @@ CREATE TRIGGER ValidarDimensao
 				END IF;
 			END;
 //
-DElIMITER ; -- Restaura o delimitador
+DELIMITER ; -- Restaura o delimitador
+
+-- Gatilho para verificar se a coordenada já existe
+DELIMITER //
+CREATE TRIGGER checar_duplo_local
+	BEFORE INSERT ON Local
+		FOR EACH ROW
+			BEGIN
+				DECLARE err_msg VARCHAR(255);
+				IF EXISTS(
+					SELECT 1 FROM Local
+						WHERE
+							id_server=NEW.id_server AND
+							id_dim=NEW.id_dim AND
+							nome=NEW.nome
+					) THEN
+						SET err_msg = concat('Coordenada ', NEW.nome, ' já existe no banco!');
+						SIGNAL SQLSTATE '45000'
+							SET MESSAGE_TEXT = err_msg;
+				END IF;
+			END ;
+//
+DELIMITER ;
