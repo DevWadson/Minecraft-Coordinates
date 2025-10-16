@@ -2,13 +2,14 @@
 
 ## 🧩 Em progresso
 
-- [ ] Migração do banco de dados SQLite para MySQL.
+- [ ] .
 - [ ] .
 - [ ] .
 - [ ] .
 
 ## ✅ Feito
 
+- [x] Migração do banco de dados SQLite para MySQL.
 - [x] Implementar um método de procura das coordenadas.
 - [x] Fazer um validador.
 - [x] Implenentar um método para mostrar as informações das coordenadas.
