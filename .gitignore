@@ -16,3 +16,4 @@ desktop.ini
 *.pyc
 *.json
 *.lock
+*_clear_table_data.sql
