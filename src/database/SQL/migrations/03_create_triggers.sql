@@ -15,12 +15,12 @@ DELIMITER ; -- Restaura o delimitador
 -- Gatilho para verificar se a coordenada já existe
 DELIMITER //
 CREATE TRIGGER checar_duplo_local
-	BEFORE INSERT ON Local
+	BEFORE INSERT ON local
 		FOR EACH ROW
 			BEGIN
 				DECLARE err_msg VARCHAR(255);
 				IF EXISTS(
-					SELECT 1 FROM Local
+					SELECT 1 FROM local
 						WHERE
 							id_server=NEW.id_server AND
 							id_dim=NEW.id_dim AND
