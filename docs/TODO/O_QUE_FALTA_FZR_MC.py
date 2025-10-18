@@ -12,6 +12,7 @@ FALTA = """\n>
     3. Implementar um redirecionamento para a coordenada, no clique do nome da coordenada.
     4. Refatorar/modularizar GUI.
     5. Trocar o nome do arquivo.
+    6. Modularizar o arquivo ->gui.py.
 """
 
 print(FALTA)
