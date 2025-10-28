@@ -1,7 +1,7 @@
 """Programa para guardar coordenadas do Minecraft.(_main)"""
 # from .database import criar_tabelas_sqlite
-# from .database.SQLite.sqlite_db_script import criar_tabelas_sqlite
-from .database.SQL.mysql_connection import get_mysql_db
+# from .database.SQLite import criar_tabelas_sqlite
+from .database.SQL import get_mysql_db
 from . import GUI
 
 #==========Função Principal==========
