@@ -20,7 +20,7 @@ from src.database.SQL.schemas import ServidorCreate, DimensaoCreate, LocalCreate
 
 load_dotenv()
 
-MYSQL_CONN = f"mysql+pymysql://{os.getenv('DB_USER')}:{os.getenv('DB_PSSWRD')}@{os.getenv('DB_HOST')}/{os.getenv('DB_NAME')}"
+MYSQL_CONN = f'mysql+pymysql://{os.getenv('DB_USER')}:{os.getenv('DB_PSSWRD')}@{os.getenv('DB_HOST')}/{os.getenv('DB_NAME')}'
 MySQL_BIN = create_engine(MYSQL_CONN, echo=True)
 SessionLocal = sessionmaker(bind=MySQL_BIN)
 
