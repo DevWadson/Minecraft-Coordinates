@@ -18,7 +18,7 @@ queira voltar ou ir e precisa de uma coordenada para isto.
 
 ## 🛠️ Tecnologias usadas
 
-- **Linguagem:** Python 3  
+- **Linguagem:** Python3  
 - **Bibliotecas:**  
   - `customtkinter` → interface gráfica moderna
   - `pyautogui` → captura de tela/inputs (se aplicável)
