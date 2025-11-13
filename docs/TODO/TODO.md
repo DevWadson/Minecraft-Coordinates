@@ -24,3 +24,5 @@
 - [ ] Otimizar o BD.
 - [ ] Exportação para CSV/JSON.
 - [ ] Redirecionar ao clicar no nome da coordenada.
+- [ ] Refatorar/modularizar "validador.py".
+- [ ] Refatorar/modularizar "gui.py".
