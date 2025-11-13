@@ -3,9 +3,6 @@
 ## 🧩 Em progresso
 
 - [ ] Refatorar/modularizar "validador.py".
-- [ ] .
-- [ ] .
-- [ ] .
 
 ## ✅ Feito
 
