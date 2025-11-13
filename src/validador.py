@@ -5,13 +5,12 @@ from .utils import Union
 class Validador:
     """Classe que controla os validadores."""
     @staticmethod
-    def validar_string(valor: str, nome: str) -> bool:
-        """Valida se o valor é uma string não-vazia."""
-        if not isinstance(valor, str) and valor != (["Servidor", "Nome"]):
-            raise ValueError(f'"{nome}" deve ser uma string e campo não pode ser vazio.')
-
-        if valor == (["Servidor", "Nome"]):
+    def validar_string(valor: str, nome: str) -> bool: #Trocar para 'normalizar_string'
+        """Verifica se o campo é vazio."""
+        if nome in ("Servidor", "Nome") and valor == "":
             valor = "Desconhecido"
+
+            return valor
 
         return True
 
