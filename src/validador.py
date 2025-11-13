@@ -15,14 +15,6 @@ class Validador:
         return True
 
     @staticmethod
-    def validar_int(valor: int, nome: str) -> bool:
-        """Valida se o valor é inteiro."""
-        if not isinstance(valor, int) or valor == 0:
-            raise ValueError(f'"{nome}" deve ser um valor inteiro diferente de 0.')
-
-        return True
-
-    @staticmethod
     def validar_world(valor:str, nome: str) -> bool:
         """Valida se 'World' possui os dados corretos."""
         MUNDOS = tuple[str, str](["Overworld", "Nether", "End"])
