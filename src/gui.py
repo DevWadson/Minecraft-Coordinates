@@ -154,6 +154,10 @@ class GUI:
     # Limpa o frame anterior
         clear_frame()
 
+        session = SessionLocal()
+
+        coordenada = session.query(Coordenada).all()
+
         #Converte as coordenadas para um objeto
         coordenadas_all = [
             {
