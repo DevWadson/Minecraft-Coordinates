@@ -17,10 +17,10 @@ class Validador:
     @staticmethod
     def validar_world(valor:str, nome: str) -> bool:
         """Valida se 'World' possui os dados corretos."""
-        MUNDOS = tuple[str, str](["Overworld", "Nether", "End"])
+        mundos = {"Overworld", "Nether", "End"}
 
-        if valor not in MUNDOS:
-            raise ValueError(f'"{nome}" deve ser um desses\n{MUNDOS}.')
+        if valor not in mundos:
+            raise ValueError(f'"{nome}" deve ser um desses\n{mundos}.')
 
         return True
 
